@@ -63,6 +63,46 @@ used.
 
 • Genus Script file with .tcl file Extension commands are executed one by one to synthesize the netlist.
 
+`timescale 1ns / 1ns
+module counter_test;
+
+reg clk,rst,m;
+
+wire [3:0] count;
+
+initial
+
+begin
+
+clk=0;
+
+rst=0;#5;
+
+rst=1;
+
+end
+
+initial
+
+begin
+
+m=1;
+
+#160 m=0;
+
+end
+
+counter counter1 (clk,m,rst, count);
+
+always #5 clk=~clk;
+ 
+initial $monitor("Time=%t rst=%b clk=%b count=%b" , $time,rst,clk,count);
+
+initial
+#320 $finish;
+
+endmodule
+
 #### Synthesis RTL Schematic :
 ![WhatsApp Image 2024-11-16 at 11 10 38](https://github.com/user-attachments/assets/319bfb2f-847a-4c5c-9fe5-b31ab7462bb1)
 #### Area report:
